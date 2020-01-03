@@ -9,10 +9,28 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
-
     def publish(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
         return self.title
+class enseignant(models.Model):
+    num_ens=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    nom_ens=models.CharField(max_length=20)
+    prenom_ens=models.CharField(max_length=20)
+    email_ens=models.EmailField(max_length=30)
+    
+    def send_email(self):
+        print (self.cleaned_data)
+        self.save()
+
+class etudiant(models.Model):
+    num_etu=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    nom_etu=models.CharField(max_length=20)
+    prenom_etu=models.CharField(max_length=20)
+    email_etu=models.EmailField(max_length=30)
+    
+    def send_email(self):
+        print (self.cleaned_data)
+        self.save()
